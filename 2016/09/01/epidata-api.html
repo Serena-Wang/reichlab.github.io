@@ -15,7 +15,7 @@
 
 <link href="/assets/css/spectre.min.css" rel="stylesheet">
 <link href="/css/custom.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/icon-css/font/flaticon.css"> 
+<link rel="stylesheet" type="text/css" href="/css/icon-css/font/flaticon.css">
 <link rel="stylesheet" href="css/icon-css/google-scholar/css/academicons.css"/> <!--Google Scholar logo-->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro" rel="stylesheet">
@@ -78,6 +78,7 @@
               <li><a href="/people" class="btn btn-link">People</a></li>
               <li><a href="/research" class="btn btn-link">Research</a></li>
               <li><a href="/teaching" class="btn btn-link">Teaching</a></li>
+              <li><a href="https://covid19forecasthub.org/" class="btn btn-link">COVID-19</a></li>
               <li><a href="/publications" class="btn btn-link">Publications</a></li>
               <li><a href="/blog" class="btn btn-link">Blog</a></li>
               <li>
@@ -99,6 +100,7 @@
             <a href="/people" class="btn btn-link">People</a>
             <a href="/research" class="btn btn-link">Research</a>
             <a href="/teaching" class="btn btn-link">Teaching</a>
+            <a href="https://covid19forecasthub.org/" class="btn btn-link">COVID-19</a>
             <a href="/publications" class="btn btn-link">Publications</a>
             <a href="/blog" class="btn btn-link">Blog</a>
             <div class="dropdown dropdown-right">
@@ -154,7 +156,7 @@
 
 <p>Here is some code that pulls data from <a href="http://nidss.cdc.gov.tw/en/">Taiwan’s NIDSS</a>, specifically asking for nationwide data, and data from the central region. A complete list of <a href="https://github.com/undefx/delphi-epidata/blob/master/labels/nidss_regions.txt">regions</a> and <a href="https://github.com/undefx/delphi-epidata/blob/master/labels/nidss_locations.txt">locations</a> are available. Also, I’ve specified a range of weeks from the first week of 2010 (<code class="highlighter-rouge">201001</code>) to the last week of 2016 (<code class="highlighter-rouge">201653</code>).</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Epidata</span><span class="o">$</span><span class="n">nidss.dengue</span><span class="p">(</span><span class="n">locations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s1">'nationwide'</span><span class="p">,</span><span class="w"> </span><span class="s1">'central'</span><span class="p">),</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">Epidata</span><span class="o">$</span><span class="n">nidss.dengue</span><span class="p">(</span><span class="n">locations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="s1">'nationwide'</span><span class="p">,</span><span class="w"> </span><span class="s1">'central'</span><span class="p">),</span><span class="w">
                             </span><span class="n">epiweeks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">Epidata</span><span class="o">$</span><span class="nf">range</span><span class="p">(</span><span class="m">201001</span><span class="p">,</span><span class="w"> </span><span class="m">201653</span><span class="p">)))</span><span class="w">
 </span></code></pre></div></div>
 
@@ -187,8 +189,8 @@
 </span><span class="n">df</span><span class="o">$</span><span class="n">year</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">epiweek</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">4</span><span class="p">))</span><span class="w">
 </span><span class="n">df</span><span class="o">$</span><span class="n">week</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">epiweek</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">))</span><span class="w">
 </span><span class="n">df</span><span class="o">$</span><span class="n">date</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">MMWRweek2Date</span><span class="p">(</span><span class="n">MMWRyear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">MMWRweek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">week</span><span class="p">)</span><span class="w">
-</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">article</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> 
-  </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+</span><span class="n">ggplot</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">count</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">article</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+  </span><span class="n">geom_point</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
   </span><span class="n">geom_smooth</span><span class="p">(</span><span class="n">span</span><span class="o">=</span><span class="m">.1</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
 
@@ -199,7 +201,7 @@
 <p><strong>UPDATE</strong>: (2 Sept 2016) Roni Rosenfeld, the head of the DELPHI group at CMU, pointed out and asked me to mention that David Farrow was the force behind the creation of the epidata API and the epivis tool.</p>
 
 
-          
+
             <div id="disqus_thread"></div>
 <script type="text/javascript">
  var disqus_config = function () {
@@ -221,7 +223,7 @@
   </a>
 </noscript>
 
-          
+
         </div>
       </div>
     </section>

@@ -15,7 +15,7 @@
 
 <link href="/assets/css/spectre.min.css" rel="stylesheet">
 <link href="/css/custom.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/icon-css/font/flaticon.css"> 
+<link rel="stylesheet" type="text/css" href="/css/icon-css/font/flaticon.css">
 <link rel="stylesheet" href="css/icon-css/google-scholar/css/academicons.css"/> <!--Google Scholar logo-->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro" rel="stylesheet">
@@ -78,6 +78,7 @@
               <li><a href="/people" class="btn btn-link">People</a></li>
               <li><a href="/research" class="btn btn-link">Research</a></li>
               <li><a href="/teaching" class="btn btn-link">Teaching</a></li>
+              <li><a href="https://covid19forecasthub.org/" class="btn btn-link">COVID-19</a></li>
               <li><a href="/publications" class="btn btn-link">Publications</a></li>
               <li><a href="/blog" class="btn btn-link">Blog</a></li>
               <li>
@@ -99,6 +100,7 @@
             <a href="/people" class="btn btn-link">People</a>
             <a href="/research" class="btn btn-link">Research</a>
             <a href="/teaching" class="btn btn-link">Teaching</a>
+            <a href="https://covid19forecasthub.org/" class="btn btn-link">COVID-19</a>
             <a href="/publications" class="btn btn-link">Publications</a>
             <a href="/blog" class="btn btn-link">Blog</a>
             <div class="dropdown dropdown-right">
@@ -297,13 +299,13 @@ entirely missing rows.</p>
 identify just cities that had both a lot of cases and weeks where cases
 were reported.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cities_with_1918</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pneumo_dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cities_with_1918</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pneumo_dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">filter</span><span class="p">(</span><span class="n">PeriodEndDate</span><span class="o">&gt;</span><span class="n">as.Date</span><span class="p">(</span><span class="s2">"1919-12-31"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">group_by</span><span class="p">(</span><span class="n">CityName</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">summarize</span><span class="p">(</span><span class="n">tot_records</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">CountValue</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">filter</span><span class="p">(</span><span class="n">tot_records</span><span class="o">&gt;</span><span class="m">60</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">.</span><span class="o">$</span><span class="n">CityName</span><span class="w">
 
-</span><span class="n">big_cities</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pneumo_dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+</span><span class="n">big_cities</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pneumo_dat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">group_by</span><span class="p">(</span><span class="n">CityName</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">summarize</span><span class="p">(</span><span class="n">tot_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">CountValue</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">filter</span><span class="p">(</span><span class="n">tot_count</span><span class="o">&gt;</span><span class="m">1000</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">.</span><span class="o">$</span><span class="n">CityName</span><span class="w">
@@ -312,7 +314,7 @@ were reported.</p>
 <p>Once we have all that done, it’s not that difficult to use <code class="highlighter-rouge">ggplot</code> to
 construct a plot of pneumonia deaths during and after the 1918 pandemic.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">filter</span><span class="p">(</span><span class="n">pneumo_dat</span><span class="p">,</span><span class="w"> </span><span class="n">CityName</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">big_cities</span><span class="p">,</span><span class="w"> </span><span class="n">CityName</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">cities_with_1918</span><span class="p">),</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ggplot</span><span class="p">(</span><span class="n">filter</span><span class="p">(</span><span class="n">pneumo_dat</span><span class="p">,</span><span class="w"> </span><span class="n">CityName</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">big_cities</span><span class="p">,</span><span class="w"> </span><span class="n">CityName</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">cities_with_1918</span><span class="p">),</span><span class="w">
     </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">PeriodStartDate</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">CountValue</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
     </span><span class="n">geom_line</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">facet_grid</span><span class="p">(</span><span class="n">CityName</span><span class="o">~</span><span class="n">.</span><span class="p">,</span><span class="w"> </span><span class="n">scales</span><span class="o">=</span><span class="s2">"free_y"</span><span class="p">)</span><span class="w">
 </span></code></pre></div></div>
@@ -350,20 +352,20 @@ below the path to your csv file.</p>
 <p>As was necessary in the first example, this needed a bit of cleaning up
 to prepare for plotting.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">aggpidat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fludat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">aggpidat</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fludat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">filter</span><span class="p">(</span><span class="n">epi_week</span><span class="o">&gt;</span><span class="m">196700</span><span class="p">,</span><span class="w"> </span><span class="n">epi_week</span><span class="o">&lt;</span><span class="m">197100</span><span class="p">,</span><span class="w"> </span><span class="n">event</span><span class="o">==</span><span class="s2">"DEATHS"</span><span class="p">,</span><span class="w"> </span><span class="n">disease</span><span class="o">==</span><span class="s2">"PNEUMONIA AND INFLUENZA"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
-    </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MMWRweek2Date</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">epi_week</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">4</span><span class="p">)),</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">epi_week</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">))))</span><span class="w"> 
+    </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MMWRweek2Date</span><span class="p">(</span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">epi_week</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="m">4</span><span class="p">)),</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">substr</span><span class="p">(</span><span class="n">epi_week</span><span class="p">,</span><span class="m">5</span><span class="p">,</span><span class="m">6</span><span class="p">))))</span><span class="w">
 </span></code></pre></div></div>
 
 <p>Again, I tried to focus on cities where there were higher counts and
 more weeks with observed data.</p>
 
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">big_pi_cities</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggpidat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">big_pi_cities</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggpidat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">group_by</span><span class="p">(</span><span class="n">city_state</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">summarize</span><span class="p">(</span><span class="n">tot_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">number</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">filter</span><span class="p">(</span><span class="n">tot_count</span><span class="o">&gt;</span><span class="m">2000</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">.</span><span class="o">$</span><span class="n">city_state</span><span class="w">
 
-</span><span class="n">cities_with_1968</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggpidat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+</span><span class="n">cities_with_1968</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">aggpidat</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">filter</span><span class="p">(</span><span class="n">epi_week</span><span class="o">&gt;</span><span class="m">196800</span><span class="p">,</span><span class="w"> </span><span class="n">epi_week</span><span class="o">&lt;</span><span class="m">197000</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">group_by</span><span class="p">(</span><span class="n">city_state</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
     </span><span class="n">summarize</span><span class="p">(</span><span class="n">tot_records</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">())</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
@@ -386,7 +388,7 @@ pneumonia, but even then, as is evident from the city-level data, there
 are lots of gaps in the observations. This is not as evident in the
 overall aggregate data shown in the first plot above the fold. In 1918,
 the data clearly show a first peak in late 1918 and then a second peak
-in early 1920, although most cities are missing data for almost all of 1919. 
+in early 1920, although most cities are missing data for almost all of 1919.
 In the 1968 pandemic, there seems to be a small first wave (or
 maybe just a larger seasonal wave) in the 1967/1968 season followed by a
 larger peak right around December 1968 and January 1969. But this
@@ -419,7 +421,7 @@ about dynamics of pandemic second waves, spatial variation in outbreaks,
 and more.</p>
 
 
-          
+
             <div id="disqus_thread"></div>
 <script type="text/javascript">
  var disqus_config = function () {
@@ -441,7 +443,7 @@ and more.</p>
   </a>
 </noscript>
 
-          
+
         </div>
       </div>
     </section>
